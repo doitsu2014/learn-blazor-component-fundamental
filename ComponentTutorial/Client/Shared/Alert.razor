@@ -1,7 +1,9 @@
-﻿@if(Show)
+﻿@if (Show)
 {
     <div class="alert alert-primary" role="alert">
         @ChildContent
-        <button class="close" data-dismiss="alert" aria-label="Close" @onclick="@DismissAlert"></button>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" @onclick="@DismissAlert">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 }

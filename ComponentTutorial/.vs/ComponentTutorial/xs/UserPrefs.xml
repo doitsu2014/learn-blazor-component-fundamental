@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{4F272BA0-747E-4BC7-BEDD-870C5B4E414E}|ComponentTutorial.Server">
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ComponentTutorial" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ComponentTutorial.Server PreferredExecutionTarget="/Applications/Microsoft Edge.app" />
+</Properties>

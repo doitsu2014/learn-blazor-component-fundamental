@@ -6,15 +6,11 @@ namespace ComponentTutorial.Client.Shared
 {
     public class Timer : ComponentBase
     {
-        public Timer()
-        {
-        }
-
         [Parameter]
         public double TimeInSeconds { get; set; }
 
         [Parameter]
-        public Action Tick { get; set; }
+        public EventCallback Tick { get; set; }
 
         protected override void OnInitialized()
         {
@@ -22,7 +18,7 @@ namespace ComponentTutorial.Client.Shared
 
             var timer = new System.Threading.Timer
             (
-                callback: (_) => InvokeAsync(() => Tick?.Invoke()),
+                callback: (_) => InvokeAsync(() => Tick.InvokeAsync(null)),
                 state: null,
                 dueTime: TimeSpan.FromSeconds(TimeInSeconds),
                 period: Timeout.InfiniteTimeSpan

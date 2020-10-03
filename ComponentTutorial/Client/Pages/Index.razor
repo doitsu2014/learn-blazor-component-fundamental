@@ -2,20 +2,38 @@
 <h1>Hello, world!</h1>
 Welcome to your new app.
 
-<Alert @bind-Show="@ShowAlert">
-    <span class="mt-5">Blazor</span> is amazing.
+<Alert @bind-Show="@ShowAlertVersion1">
+    <span class="mt-5">Blazor</span> is amazing version 1.
 </Alert>
-<button class="btn btn-primary" @onclick="Toggle">Toggle Alert</button>
-<Timer TimeInSeconds="5" Tick="@Toggle" />
-<SurveyPrompt Title="How is Blazor working for you?" />
 
-@code 
+<Alert @ref="@_alertVersion2" @bind-Show="@ShowAlertVersion2">
+    <span class="mt-5">Blazor</span> is amazing version 2.
+</Alert>
+
+<p>Current Show Alert Version 01 value: @ShowAlertVersion1</p>
+<p>Current Show Alert Version 02 value: @ShowAlertVersion2</p>
+
+<button class="btn btn-primary" @onclick="@ToggleAlertVersion1">Toggle alert version 01</button>
+<Timer TimeInSeconds="5" Tick="@ToggleAlertVersion1"/>
+
+<button class="btn btn-primary" @onclick="@ToggleAlertVersion2">Toggle alert version 02</button>
+<Timer TimeInSeconds="5" Tick="@(() => _alertVersion2.DismissAlert())"/>
+
+@code
 {
-    public bool ShowAlert { get; set; } = false;
-    public void Toggle()
+    private Alert _alertVersion2; 
+    public bool ShowAlertVersion1 { get; set; }
+    public bool ShowAlertVersion2 { get; set; }
+
+    public void ToggleAlertVersion1()
     {
-        System.Console.WriteLine("+++");
-        ShowAlert = !ShowAlert;
-        this.StateHasChanged();
+        System.Console.WriteLine("Toggle alert version 01");
+        ShowAlertVersion1 = !ShowAlertVersion1;
+    }
+
+    public void ToggleAlertVersion2()
+    {
+        System.Console.WriteLine("Toggle alert version 02");
+        ShowAlertVersion2 = !ShowAlertVersion2;
     }
 }

@@ -1,28 +1,20 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace Client.Shared
+namespace ComponentTutorial.Client.Shared
 {
     public partial class Alert
     {
-        private bool show;
-        [Parameter]
-        public bool Show
+        [Parameter] public bool Show { get; set; }
+
+        [Parameter] public EventCallback<bool> ShowChanged { get; set; }
+
+        [Parameter] public RenderFragment ChildContent { get; set; }
+
+        public void DismissAlert()
         {
-            get => this.show;
-            set
-            {
-                this.show = value;
-                ShowChanged?.Invoke(this.show);
-            }
+            Show = false;
+            ShowChanged.InvokeAsync(this.Show);
         }
-
-        [Parameter]
-        public Action<bool> ShowChanged { get; set; }
-
-        [Parameter]
-        public RenderFragment ChildContent { get; set; }
-
-        private void DismissAlert() => Show = false;
     }
 }
