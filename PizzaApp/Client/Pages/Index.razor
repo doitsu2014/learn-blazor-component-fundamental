@@ -1,0 +1,84 @@
+﻿@page "/"
+@using LearningBlazorWeb.Shared
+@using System.Globalization
+
+
+<Alert @bind-Show="@ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span> <strong>Blazor is soo cool!</strong>
+</Alert>
+
+<button @onclick="ToggleShowAlert" class="btn btn-primary">Toggle Show Alert!</button>
+<p>Current show alert value: @ShowAlert</p>
+
+<hr/>
+
+<h1>Hello, mah customers!</h1>
+<p>I will show you, what can I do.</p>
+<p>There selection of pizzas:</p>
+
+@foreach (var pizza in State.Menu.Pizzas)
+{
+     <div class="row">
+         <div class="col">@pizza.Name</div>
+         <div class="col">@pizza.Price.ToString(CultureInfo.InvariantCulture)</div>
+         <div class="col">
+             <img width="110" height="100" src="@(SpicinessImage(pizza.Spiciness))" alt=""/></div>
+         <div class="col"><button class="btn btn-success" @onclick="@(() => AddToBasket(pizza))">Add</button></div>
+     </div>   
+}
+
+@if (State.Basket.ListOrders.Count > 0)
+{
+    <h1>There is your basket:</h1>
+    @foreach (var (pizza, pos) in State.Basket.ListOrders.Select((id, pos) => (State.Menu.GetPizzaById(id), pos)))
+    {
+        <div class="row">
+            <div class="col">@pizza.Name</div>
+            <div class="col">@pizza.Price.ToString(CultureInfo.InvariantCulture)</div>
+            <div class="col">
+                <button class="btn btn-danger" @onclick="@(() => RemoveFromBasket(pos))">Remove from basket</button>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col">Total:</div>
+        <div class="col">@State.TotalPrice</div>
+        <div class="col"></div> 
+    </div>
+}
+
+@code
+{
+    private string SpicinessImage(Spiciness spiciness) => $"/images/{spiciness.ToString().ToLower()}.png";
+    private State State { get; } = new State()
+    {
+        Menu = new Menu()
+        {
+            Pizzas = new List<Pizza>()
+            {
+                new Pizza(1, "Pepperoni", 7.99M, Spiciness.Spicy),
+                new Pizza(2, "Margarita", 5.99M, Spiciness.None),
+                new Pizza(3, "Diabolo", 9.99M, Spiciness.Hot)
+            }
+        }
+    };
+
+    private void AddToBasket(Pizza pizza)
+    {
+        Console.WriteLine($"Added pizza {pizza.Name}");
+        State.Basket.Add(pizza.Id);
+    }
+
+    private void RemoveFromBasket(int pos)
+    {
+        Console.WriteLine($"Removed pizza at position {pos}");
+        State.Basket.RemoveAt(pos);
+    }
+
+    public bool ShowAlert { get; set; }
+
+    private void ToggleShowAlert()
+    {
+        ShowAlert = !ShowAlert;
+    }
+}
