@@ -19,6 +19,14 @@ Welcome to your new app.
 <button class="btn btn-primary" @onclick="@ToggleAlertVersion2">Toggle alert version 02</button>
 <Timer TimeInSeconds="5" Tick="@(() => _alertVersion2.DismissAlert())"/>
 
+
+<GrandMother>
+    <GrandChild />
+    <Alert Show="true">
+        <GrandChild />
+    </Alert>
+</GrandMother>
+
 @code
 {
     private Alert _alertVersion2; 
