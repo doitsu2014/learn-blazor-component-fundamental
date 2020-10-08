@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 
-namespace ComponentTutorial.Client.Shared
+namespace ComponentTutorial.Components
 {
     public partial class Alert
     {

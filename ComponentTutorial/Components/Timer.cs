@@ -2,7 +2,7 @@
 using System.Threading;
 using Microsoft.AspNetCore.Components;
 
-namespace ComponentTutorial.Client.Shared
+namespace ComponentTutorial.Components
 {
     public class Timer : ComponentBase
     {
