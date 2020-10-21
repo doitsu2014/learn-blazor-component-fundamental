@@ -18,6 +18,7 @@
 
 @foreach (var pizza in State.Menu.Pizzas)
 {
+    <PizzaItem ButtonClass="btn btn-success" ButtonTitle="Add" Selected="@(async (evt) => AddToBasket(evt))" />
      <div class="row">
          <div class="col">@pizza.Name</div>
          <div class="col">@pizza.Price.ToString(CultureInfo.InvariantCulture)</div>
@@ -49,7 +50,6 @@
 
 @code
 {
-    private string SpicinessImage(Spiciness spiciness) => $"/images/{spiciness.ToString().ToLower()}.png";
     private State State { get; } = new State()
     {
         Menu = new Menu()
