@@ -1,0 +1,23 @@
+@using LearningBlazorWeb.Shared
+
+<div class="compPizzaList">
+    <h1>@Title</h1>
+    @foreach (var pizza in Pizzas)
+    {
+        <PizzaItem ButtonClass="btn btn-success" ButtonTitle="Add On" Pizza="@pizza"
+    Selected="@(async (evt) => await Selected.InvokeAsync(pizza))" />
+    }
+</div>
+
+
+@code
+{
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback<Pizza> Selected { get; set; }
+
+    [Parameter]
+    public List<Pizza> Pizzas { get; set; }
+}

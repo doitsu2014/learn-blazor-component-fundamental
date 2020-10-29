@@ -1,0 +1,48 @@
+@using LearningBlazorWeb.Shared
+
+
+<div class="compShoppingBasket">
+    @if (Basket.Orders.Count > 0)
+    {
+        <h1>@Title</h1>
+        @foreach (var o in Orders)
+        {
+            <PizzaItem ButtonClass="btn btn-danger" ButtonTitle="Remove" Pizza="@o.pizza"
+        Selected="@(async (evt) => await Selected.InvokeAsync(o.pos))" />
+        }
+        <div class="row">
+            <div class="col">Total: </div>
+            <div class="col">@TotalPrice</div>
+            <div class="col"></div>
+        </div>
+    }
+</div>
+
+
+
+
+@code
+{
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback<int> Selected { get; set; }
+
+    [Parameter]
+    public Basket Basket { get; set; }
+
+    [Parameter]
+    public Func<int, Pizza> GetPizzaFromId { get; set; }
+
+    private List<(int pos, Pizza pizza)> Orders { get; set; }
+    private decimal TotalPrice { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        Orders = Basket.Orders.Select(x => (x, GetPizzaFromId(x))).ToList();
+        TotalPrice = Orders.Select(x => x.pizza.Price).Sum();
+    }
+
+}

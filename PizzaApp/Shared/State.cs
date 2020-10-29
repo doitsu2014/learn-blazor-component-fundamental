@@ -8,6 +8,6 @@ namespace LearningBlazorWeb.Shared
         public Basket Basket { get; set; } = new Basket();
         public UI UI { get; set; } = new UI();
 
-        public decimal TotalPrice => this.Basket.ListOrders.Sum(id => Menu.GetPizzaById(id).Price); 
+        public decimal TotalPrice => this.Basket.Orders.Sum(id => Menu.GetPizzaById(id).Price); 
     }
 }

@@ -5,18 +5,18 @@ namespace LearningBlazorWeb.Shared
     public class Basket
     {
         public Customer Customer { get; set; }
-        public List<int> ListOrders { get; set; } = new List<int>();
+        public List<int> Orders { get; set; } = new List<int>();
 
         public bool HasPaid { get; set; }
         
         public void Add(int pizzaId)
         {
-            ListOrders.Add(pizzaId);
+            Orders.Add(pizzaId);
         }
 
         public void RemoveAt(int position)
         {
-            ListOrders.RemoveAt(position);
+            Orders.RemoveAt(position);
         }
     }
 }
