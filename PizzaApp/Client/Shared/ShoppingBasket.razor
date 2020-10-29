@@ -33,7 +33,7 @@
     public Basket Basket { get; set; }
 
     [Parameter]
-    public Func<int, Pizza> GetPizzaFromId { get; set; }
+    public Func<int, Pizza> GetPizzaById { get; set; }
 
     private List<(int pos, Pizza pizza)> Orders { get; set; }
     private decimal TotalPrice { get; set; }
@@ -41,7 +41,7 @@
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        Orders = Basket.Orders.Select(x => (x, GetPizzaFromId(x))).ToList();
+        Orders = Basket.Orders.Select(x => (x, GetPizzaById(x))).ToList();
         TotalPrice = Orders.Select(x => x.pizza.Price).Sum();
     }
 
