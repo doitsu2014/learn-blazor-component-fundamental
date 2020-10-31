@@ -5,6 +5,8 @@
     <PizzaList Pizzas="@State.Menu.Pizzas" Selected="@(async (p) => AddToBasket(p))" Title="List of pizzas:" />
     <ShoppingBasket Basket="@State.Basket" Selected="@(async (pos) => RemoveFromBasket(pos))" Title="Shopping basket:"
 GetPizzaById="@((pos) => State.Menu.GetPizzaById(pos))" />
+    <CustomerEntry Customer="@(State.Basket.Customer)" Title="Please enter your details below" ButtonTitle="Checkout"
+ButtonClass="btn btn-primary" Submit="@PlaceOrder" />
 </div>
 
 
@@ -46,6 +48,11 @@ GetPizzaById="@((pos) => State.Menu.GetPizzaById(pos))" />
     private void ToggleShowAlert()
     {
         ShowAlert = !ShowAlert;
+    }
+
+    private void PlaceOrder()
+    {
+        Console.WriteLine("Placing order");
     }
 
 }
