@@ -2,11 +2,16 @@
 @using LearningBlazorWeb.Shared
 
 <div class="pageIndex">
+
     <PizzaList Pizzas="@State.Menu.Pizzas" Selected="@(async (p) => AddToBasket(p))" Title="List of pizzas:" />
     <ShoppingBasket Basket="@State.Basket" Selected="@(async (pos) => RemoveFromBasket(pos))" Title="Shopping basket:"
 GetPizzaById="@((pos) => State.Menu.GetPizzaById(pos))" />
     <CustomerEntry Customer="@(State.Basket.Customer)" Title="Please enter your details below" ButtonTitle="Checkout"
-ButtonClass="btn btn-primary" Submit="@PlaceOrder" />
+ButtonClass="btn btn-primary" Submit="@PlaceOrder" CustomerChanged="@((customer) => this.State.Basket.Customer = customer)" />
+
+    <div class="col-md-12">
+        @State.ToJson() 
+    </div>
 </div>
 
 

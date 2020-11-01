@@ -1,7 +1,10 @@
 @using LearningBlazorWeb.Shared
-<EditForm Model="@Customer" OnValidSubmit="@Submit">
+@using Newtonsoft.Json
+
+<EditForm Model="@Customer" OnValidSubmit="@Submit" class="col-md-12 mb-2">
     <DataAnnotationsValidator />
 
+    <FormWatcher @ref="_formWatcher" FieldChanged="@FieldChanged" />
     <div class="form-group row mb-1">
         <label for="Name" class="col-sm-3 col-form-label">Name:</label>
         <div class="col-sm-9">
@@ -24,12 +27,19 @@
         </div>
     </div>
     <div class="form-group mb-0">
-        <button type="submit" class="@ButtonClass">@ButtonTitle</button>
+        <button type="submit" class="@ButtonClass" disabled="@_isInValid">@ButtonTitle</button>
+        Disabled: @_isInValid
     </div>
+    @JsonConvert.SerializeObject(Customer)
+    <hr />
 </EditForm>
 
 @code
 {
+    private bool _isInValid = true;
+
+    private FormWatcher _formWatcher;
+
     [Parameter]
     public string Title { get; set; }
 
@@ -44,4 +54,14 @@
 
     [Parameter]
     public EventCallback Submit { get; set; }
+
+    [Parameter]
+    public EventCallback<Customer> CustomerChanged { get; set; }
+
+    private async Task FieldChanged(string fieldName)
+    {
+        await CustomerChanged.InvokeAsync(Customer);
+        _isInValid = !_formWatcher.Validate();
+    }
+
 }

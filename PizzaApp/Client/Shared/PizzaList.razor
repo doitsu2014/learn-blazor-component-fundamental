@@ -1,13 +1,13 @@
 @using LearningBlazorWeb.Shared
 
-<div class="compPizzaList">
+<div class="compPizzaList col-md-12 mb-2">
     <h1>@Title</h1>
     @foreach (var pizza in Pizzas)
     {
-        
         <PizzaItem ButtonClass="btn btn-success" ButtonTitle="Add On" Pizza="@pizza"
     Selected="@(async (evt) => await Selected.InvokeAsync(pizza))" />
     }
+    <hr/>
 </div>
 
 
